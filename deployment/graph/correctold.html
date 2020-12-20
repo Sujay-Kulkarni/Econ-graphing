@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link rel="icon" href="./images/norton.png">
+
+    <title>Norton - Econ Graphing SW5</title>
+
+    <link rel="stylesheet" type="text/css" href="graphed.css" charset="utf-8">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+	<link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="html-reset.css" />
+	<link rel="stylesheet" href="./fontawesome/font-awesome.min.css">
+
+	<script type="text/javascript">
+		// IE9 fix
+		if(!window.console) {
+			var console = {
+				log : function(){},
+				warn : function(){},
+				error : function(){},
+				time : function(){},
+				timeEnd : function(){}
+			}
+		}
+		
+		$(window).load(function(){
+
+   		});
+	</script>
+	<!--[if lte IE 8]><link rel="stylesheet" href="../dist/MarkerCluster.Default.ie.css" /><![endif]-->
+
+
+<style type="text/css">
+<!--
+
+@font-face {
+    font-family: "Lato Bold";
+    src: url("fonts/Lato-Bold.ttf");
+    font-style: bold;
+}
+
+@font-face {
+    font-family: "Lato Regular";
+    src: url("fonts/Lato-Regular.ttf");
+    font-style: bold;
+}
+
+</style>
+
+  </head>
+
+  <body onresize="resize()">
+
+    <div id="container" class="container">
+
+	<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 30px">
+	  <a href="designer.html" role="button" class="btn btn-default btn-main-off">Designer</a>
+	  <a href="correct.html" role="button" class="btn btn-default btn-main-on" disabled>Correct</a>
+	  <a href="default.html" role="button" class="btn btn-default btn-main-off">Default</a>
+	  <a href="incorrect.html" role="button" class="btn btn-default btn-main-off">Incorrect</a>
+	  <button type="button" class="btn btn-default btn-plus"><span class="glyphicon glyphicon-cplus" aria-hidden="true" style="font-size: 26px;"></span></button>
+	</div>
+
+	<div class="row" style="padding-left: 30px; padding-right: 30px;">
+
+	 	 <div class="col-sm-7">
+
+			<div id="toolbar" class="toolbar">
+	
+				<div class="btn-group" role="group" aria-label="...">
+				  <button id="pointerBtn" type="button" class="btn btn-econ-sw5"><span class="glyphicon glyphicon-hand white" aria-hidden="true"></span></button>
+				  <button id="drawpointBtn" type="button" class="btn btn-econ-sw5 btn-border"><div id="dot"></div></button>
+				  <button id="drawlineBtn" type="button" class="btn btn-econ-sw5 btn-border"><span class="glyphicon glyphicon-line" aria-hidden="true"></span></button>
+				  <button id="drawcurveBtn" type="button" class="btn btn-econ-sw5 btn-border"><span class="glyphicon glyphicon-curveline" aria-hidden="true"></span></button>
+				  <button id="drawfillpolylineBtn" type="button" class="btn btn-econ-sw5 btn-border"><span class="glyphicon glyphicon-pentagon" aria-hidden="true"></span><img id="areashade" src="./images/areashade.png"></img></button>
+				  <button id="label" type="button" class="btn btn-econ-sw5 btn-border" disabled><span class="glyphicon glyphicon-label" aria-hidden="true"></span></button>
+
+
+				</div>
+	
+				<div class="btn-group" role="group" aria-label="...">
+				  <button id="drawundoBtn" type="button" class="btn btn-econ-sw5"><span class="glyphicon glyphicon-lefta" aria-hidden="true"></span></button>
+				  <button id="drawredoBtn" type="button" class="btn btn-econ-sw5 btn-border"><span class="glyphicon glyphicon-righta" aria-hidden="true"></span></button>
+				</div>	
+			</div>
+
+			<div id="graphcontainer">
+				<input id="titletext" type="text" oninput="getTitle(this.value)" placeholder="Title of graph"></br>
+ 				<input id="yaxistext" type="text" oninput="getYA(this.value)" placeholder="Y label"></br>
+				<input id="xaxistext" type="text" oninput="getXA(this.value)" placeholder="X label"></br>
+    		</div>
+
+	 	   </div>
+
+
+		  <div class="col-sm-5">
+		  
+		  	<div id="toptools">
+		  		<div class="sectionhead">Graph Settings</div>
+		  		<div class="hrm"></div>
+		  		
+		  		<div class="row" style="margin-left: 20px;">
+		  			<div class="col-sm-6">
+		  				<div class="tool">Show Grid</div>
+		  				<div class="tool" style="margin-bottom: 8px;">Show Values</div>
+		  				<div class="tool-sm">X Increment <input id="xinc" oninput="xincChange(this.value)" class="small-in" type="number" value="1" min="1"></br></div>
+		  				<div class="tool-sm"><span class="text-sm top-text-sm">X Minimum</span><input id="xmin" oninput="xminChange(this.value)" class="small-in" type="number" value="0"></div>
+		  				<div class="tool-sm"><span class="text-sm">X Maximum</span><input id="xmax" class="small-in" type="text" disabled></div>
+		  				<div class="tool" style="margin-top: 10px;">Show title</div>
+		  				<div class="tool">Show XY labels</div>
+		  				<div class="tool">Snap</div>
+		  			</div>
+		  			<div class="col-sm-6" style="padding-top: 8px;">
+		  				<div><label class="switch tool"><input id="gridtoggle" type="checkbox" onclick="update();"><div class="slider"><span class="ontext">ON</span><span class="offtext">OFF</span></div></label></div>
+		  				<div><label class="switch tool"><input id="valuetoggle" type="checkbox" onclick="update();"><div class="slider"><span class="ontext">ON</span><span class="offtext">OFF</span></div></label></div>
+		  				<div class="tool-sm-right">Y Increment <input id="yinc" class="small-in" oninput="yincChange(this.value)" type="number" value="1" min="1"></div>
+		  				<div class="tool-sm-right"><span class="text-sm top-text-sm-right">Y Minimum</span><input id="ymin" class="small-in" oninput="yminChange(this.value)" type="number" value="0"></div>
+		  				<div class="tool-sm-right"><span class="text-sm">Y Maximum</span><input id="ymax" class="small-in" type="text" disabled></div>
+		  				<div><label class="switch tool" style="margin-top: 17px;"><input id="titletoggle" type="checkbox" onclick="update();"><div class="slider"><span class="ontext">ON</span><span class="offtext">OFF</span></div></label></div>
+		  				<div><label class="switch tool"><input id="xytoggle" type="checkbox" onclick="update();"><div class="slider"><span class="ontext">ON</span><span class="offtext">OFF</span></div></label></div>
+		  				<div><label class="switch tool"><input id="snaptoggle" type="checkbox" onclick="update();"><div class="slider"><span class="ontext">ON</span><span class="offtext">OFF</span></div></label></div>
+		  			</div>		  			
+		  		</div>		
+		  	</div>
+		  
+		  	<div id="bottomtools" class="hide">
+		  	</div>
+
+		  	<div id="interactive" class="hide">
+		  	</div>		  
+		  
+		  </div>
+
+	</div>
+
+  		<canvas id="CanvasGraph" width="386" height="390" class="CanvasClass"></canvas>
+   		<canvas id="CanvasAnimate" width="386" height="390" class="CanvasClass"></canvas>
+   		<canvas id="CanvasAnimate2" width="450" height="450" class="CanvasClass"></canvas>
+
+    </div><!-- /.container -->
+
+	<script type='text/javascript' src="./bootstrap/js/bootstrap.min.js"></script>
+	<script type='text/javascript' src="econ.js"></script>
+	<script type='text/javascript' src="econb.js"></script>
+    
+    <script type = "text/javascript" src = "./paper-full.js"> </script>
+    <script type = "text/javascript" src = "./graphpaper.js"> </script>
+ 
+  </body>
+</html>

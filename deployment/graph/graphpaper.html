@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="graphed.css" charset="utf-8">
+    <script type="text/javascript" src="./paper-full.js">
+    </script>
+    <script type="text/javascript" src="./graphpaper.js">
+    </script>
+    <meta charset="utf-8" />
+    <title>Graph Editor PaperJS</title>
+</head>
+
+<body>
+
+    <div id=btnContainer>
+        <button id="pointerBtn" class="BtnClass" title="Select" style="background-size: 100%;"></button>
+        <button id="drawpointBtn" class="BtnClass" title="Plot Point" style="background-size: 100%;"></button>
+        <button id="drawlineBtn" class="BtnClass" title="Draw Straight Line" style="background-size: 100%;"></button>
+        <button id="drawcurveBtn" class="BtnClass" title="Draw Curved Line" style="background-size: 100%;"></button>
+        <button id="drawfillpolylineBtn" class="BtnClass" title="Draw Area" style="background-size: 100%;"></button>
+        <button id="drawundoBtn" class="BtnClass" title="Undo" style="background-size: 100%;"></button>
+        <button id="drawredoBtn" class="BtnClass" title="Redo" style="background-size: 100%;"></button>
+    </div>
+
+    <canvas id="CanvasGraph" width="450" height="450" class="CanvasClass"></canvas>
+    <canvas id="CanvasAnimate" width="450" height="450" class="CanvasClass"></canvas>
+</body>
+
+</html>

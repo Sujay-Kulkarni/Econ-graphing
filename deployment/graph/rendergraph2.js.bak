@@ -1,0 +1,181 @@
+var graphsrendered=0;
+var testsd;
+var testsi;
+function exposeGraph()
+{
+	this.renderGraphModule = function(widgetID, stuDisplay, stuInput)
+	{
+		//console.log("graph module:"+stuInput);
+		//create iframe with blank graphing module
+		//graphsrendered++
+		console.log("renderGraph:");
+		var iframe = document.createElement('iframe');
+		var link = "question/graph/student.html";
+		iframe.frameBorder=0;
+		iframe.width="700px";
+		iframe.id="resultFrame";
+		iframe.height="650px";
+		iframe.setAttribute("src", link);
+	
+		//find and append iframe to SW5 div with appropriate widgetId
+		document.getElementById(widgetID).appendChild(iframe);
+		
+		testsd = stuDisplay;
+		testsi = stuInput;
+
+		//load student display json provided by SW5. Update object with student input if necessary
+		$('#resultFrame').load(function() {document.getElementById("resultFrame").contentWindow.createNewObjectSW(stuDisplay, stuInput)})
+	}
+
+	this.getStuInput = function(widgetID)
+	{
+		
+		console.log("stuInput:");
+		
+		document.getElementById("resultFrame").contentWindow.CheckGraph();
+		
+		var returnData = {
+
+			graph: document.getElementById("resultFrame").contentWindow.graphSe, 
+			elements: document.getElementById("resultFrame").contentWindow.graphMe
+
+		};
+
+		return JSON.stringify(returnData);
+		
+	}
+} 
+/*
+function SaveEs (graphjson, elementsjson)
+{
+	//var exitOnSave = event.target.value == "Save and Exit";
+
+	//padManager.stopUpdateLoop();
+	
+    var urlparams = getURLPP();
+
+	var url = urlparams.contentPath + 'rest/managewidget/saveGraphData?JSESSIONID=' + urlparams.sessionID;
+
+	var questionData = {
+
+		designerData: {graph: graphSe, elements: graphMe},
+
+		fbData: {test:"fbtest1"},
+
+		sessionID: urlparams.sessionID,
+
+		stuDisplay: {graph: graphSe, elements: graphMe},
+
+		userID: urlparams.userID,
+
+		widgetID: urlparams.widgetID
+
+	};
+
+	console.log("Graphdata JSON: " + JSON.stringify(questionData));
+
+	$.ajax({
+
+		type: 'POST',
+
+		url: url,
+
+		data: JSON.stringify(questionData),
+
+		dataType:"json",
+
+		contentType: "application/json; charset=utf-8",
+
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+			console.log("saveGraphData error");
+
+			console.log(XMLHttpRequest);
+
+			console.log(textStatus);
+
+			console.log(errorThrown);
+
+		},
+
+		success: function (data, textStatus) {
+
+			//padManager.startUpdateLoop();
+
+			$('#questionSaved').fadeIn(500,function(){
+
+				setTimeout(function(){
+
+					$('#questionSaved').fadeOut(2000);
+
+				},2500);
+
+			});
+
+			if(data.result=="true"){
+
+				console.log("Question Saved");
+
+				console.log('widgetID='+data.widgetID);
+
+			}else if(data.result=="false"){
+
+				console.log("Question save failed...");
+
+			}else{
+
+				console.log(data.result);
+
+			}
+
+			/*if(exitOnSave){
+
+				window.close();
+
+				window.history.back();
+
+			}
+
+		}
+	
+
+	});
+}
+
+
+function getURLPP(){
+
+	var queryParams = window.location.search;
+	queryParams = queryParams.replace("?","");
+	queryParams = queryParams.split("&");
+	
+	var urlVars = {};
+
+	for(var i in queryParams){
+		if(!queryParams[i])
+			continue;
+		var param = queryParams[i].split("=");
+		urlVars[param[0]] = param[1];
+	}
+
+	var path = window.location.pathname;
+
+	// Fix for IE versions lower than 11.
+
+	if (!window.location.origin) {
+	  window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+	}
+
+	urlVars.origin = window.location.origin + "/";
+
+	var splitPath = path.split("/");
+
+	urlVars.contentPath = urlVars.origin + splitPath[1] + "/";
+
+	urlVars.path = splitPath[splitPath.length - 1];
+
+	return urlVars;
+
+}
+*/
+window.graphModule = new exposeGraph();

@@ -1,0 +1,55 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+
+import net.sf.json.*;
+
+public class GraphValidate {
+	
+	public JSONObject validateGraphData(JSONObject fbData, JSONObject stuInput){
+		return validateGraphData(fbData, stuInput, null);
+	}
+	public JSONObject validateGraphData(JSONObject fbData, JSONObject stuInput, PrintWriter out){
+		
+		out.println("-------------------");
+
+		out.println("BEGINNING VALIDATEGRAPHDATA");
+
+		// The JSONObject response being sent back
+		JSONObject response = new JSONObject();
+		
+		//create correct variable
+		Boolean correct = false;
+
+out.println("stuInput:"+stuInput.toString());
+		
+		JSONObject graph = stuInput.getJSONObject("graph");
+		String answer = graph.getString("tgcorrect");
+
+		out.println("Graph:"+graph.toString());
+		out.println("Answer:"+answer);
+		out.println("stuInput:"+stuInput.toString());
+		
+		//check student input, whether correct or not.
+		if((answer.equals("correct")))
+		{
+			correct = true;
+		} else
+		{
+		    correct = false;
+		}	
+	
+		out.println("Correct:"+correct);
+		
+		response.element("result", correct);
+		response.element("fbData", "Feedback has not been incorporated into this version of new graphing module");
+		
+		out.println("ENDING VALIDATEGRAPHDATA");
+
+		out.println("----------------------");
+		
+		return response;
+	}
+
+}

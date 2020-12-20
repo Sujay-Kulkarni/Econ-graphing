@@ -1,0 +1,90 @@
+.CanvasClass {
+
+}
+
+.BtnClass {
+    position: absolute;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 34px;
+    height: 38px;
+    z-index: 100;
+    cursor: pointer; 
+}
+
+#CanvasGrid {
+    background-color: #F7F9F9;
+    z-index: 10;
+}
+
+#CanvasGraph {
+    background-color: transparent;
+    z-index: 20;
+    position: absolute;
+    top: 179px;
+    left: 57px;
+}
+
+#CanvasAnimate {
+    background-color: transparent;
+    z-index: 30;
+    position: absolute;
+    top: 179px;
+    left: 57px;
+}
+
+#btnContainer {
+    position: absolute;
+    left: 47px; 
+    top: 10px; 
+    z-index: 100; 
+    width: 177px;
+    height: 44px;
+    z-index: 90;
+    background-color: #A4A4A4;
+}
+
+/*WSG-142 Changes*/
+li.sectionhead{
+    padding: 0px 0px 0px 0px;
+    width: 50%;
+}
+#toptools > .nav-tabs > li.active > a
+{
+    border-top: 0px solid #ddd !important; 
+    border-left:  0px solid #ddd !important; 
+    border-right: 0px solid #ddd !important;
+    border-bottom: 4px solid #f3ad56;
+    position: relative;
+}
+#StudentSeting .btn-econ-sw5{
+    width: 25px !important;
+    height: 25px !important;
+}
+#StudentSeting #dot{
+    margin-left: 1px !important;
+    margin-top: 1px !important;
+}
+
+#StudentSeting .glyphicon{
+    margin-left: -4px !important;
+    top: -6px !important;
+}
+
+#StudentSeting .tool{
+    padding-bottom: 0px !important;
+}
+
+#toptools .btn-econ-sw5-on{
+	background-color: #3fa5d6 !important;
+}	
+
+#toolbar button:disabled,
+#toolbar button[disabled]{
+  background-color: #545454 !important;
+}
+
+#StudentSeting .btn-border:after{
+    position: relative;
+}
+/*WSG-142 Changes End*/
